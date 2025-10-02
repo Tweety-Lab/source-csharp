@@ -24,19 +24,19 @@ The C# solution `src/CSharp/SourceEngine/SourceEngine.sln` provides all the abst
 2. In your `client_game.vpc` and `server_game.vpc` files add the following line: `$Include "$SRCDIR\game\shared\csharp\csharp.vpc"`
 3. Open your game's `gameinterface.cpp` file and add the following code to the end of `CServerGameDLL::GameInit`:
 ```CSharp
-	// If we haven't already, initialize the C# scripting system
-	if (!CSharpScripting::IsInitialized) 
-	{
-		// Initialize C# with .NET
-		CSharpScripting::Initialize<DotNetHostBackend>();
+// If we haven't already, initialize the C# scripting system
+if (!CSharpScripting::IsInitialized) 
+{
+	// Initialize C# with .NET
+	CSharpScripting::Initialize<DotNetHostBackend>();
 
-		// Run the C# Engine load method
-		CSharpScripting::RunCSharpMethod("SourceEngine.SourceEngine:Load");
+	// Run the C# Engine load method
+	CSharpScripting::RunCSharpMethod("SourceEngine.SourceEngine:Load");
 
-		// Register C# Entity factories (DO THIS LAST)
-		// This allows entities defined in C# to be spawned from their name
-		CSharpScripting::RegisterCSharpEntityFactories();
-	}
+	// Register C# Entity factories (DO THIS LAST)
+	// This allows entities defined in C# to be spawned from their name
+	CSharpScripting::RegisterCSharpEntityFactories();
+}
 ```
 4. Add the lines `#include "scripting/CSharpScripting.h"` and `#include "scripting/dotnet/DotNetScriptingBackend.h"` near the top of `gameinterface.cpp`
 5. Follow the steps in **Build Instructions**
